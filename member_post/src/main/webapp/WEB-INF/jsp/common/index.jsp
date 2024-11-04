@@ -1,3 +1,4 @@
+<%@page import="vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
     <div class="wrap">
         <header class="container-fluid">
             <div class="container clearfix p-2">
-                <a href="index.html" class="float-start"><img src="images/logo.png" class="img-fluid" alt="로고" width="250px"></a>
+                <a href="index.html" class="float-start"><img src="images/logo.png" alt="로고" class="img-fluid" width="250px"></a>
                 <h1 class="text-center fw-bold p-3">더조은 아카데미 UI 구현 게시판 레이아웃</h1>
             </div>
         </header>
@@ -40,71 +41,45 @@
                 </li>
             </ul>
         </nav>
-       
         <main class="container">
-            <h1 class="text-center mt-5">회원 가입</h1>
-            <form name = "frm"class="mx-auto col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3 card p-2 mt-5" method="post">
-                <input type="text" class="form-control my-3" id="id" placeholder="아이디" name="id">
-                <input type="password" class="form-control my-3" id="pw" placeholder="비밀번호" name="pw">
-                <input type="text" class="form-control my-3" id="name" placeholder="이름" name="name">
-                <input type="email" class="form-control my-3" id="email" placeholder="이메일" name="email">
-                <input type="text" class="form-control my-3" id="roadAddr" placeholder="도로명 주소" name="roadAddr">
-                <input type="text" class="form-control my-3" id="detailAddr" placeholder="상세주소" name="detailAddr">
-                <div class="input-group my-3">
-                    <input type="text" class="form-control" placeholder="도로명검색">
-                    <button class="btn btn-success" id="search" type="button">검색</button>
-                  </div>
-                  <ul class="list-group search-result-wrap">
-                    
-                  </ul>
-                  <button class="btn btn-primary">가입하기</button>
-    
-            </form>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="p-3">
+                        <h1>index</h1>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 d-grid gap-2">
+                    <%
+                    	Object o = session.getAttribute("member");
+                    	if(o == null) {
+                    %>
+                        <a href="signin" class="btn btn-primary btn-block">로그인</a>
+                        <div class="small clearfix">    
+                            <a href="signup" class="small float-start text-decoration-none">회원가입</a>
+                            <a href="signin.html" class="small float-end text-decoration-none">아이디/비밀번호 찾기</a>
+                        </div>
+					<%
+                    	}
+                    	else {
+                    		Member m = (Member) o;
+					%>
+						<p><a href="mypage.html" class="text-decoration-none text-dark"><strong><%=m.getName()%></strong></a>님 환영합니다</p>
+                        <div class="small clearfix">
+                            <a href="logout.html" class="small float-start text-decoration-none">로그아웃</a>
+                            <a href="mypage.html" class="small float-end text-decoration-none">마이페이지</a>
+                        </div>
+					<%
+                    	}
+					%>                            
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="bg-warning text-center p-4">
-            <address>서울특별시 구로구 디지털로 306 대룡포스트 2차 2층 더조은 아카데미 204호</address>
+            <address>서울특별시 구로구 디지털로 306 대륭포스트 2차 2층 더조은 아카데미 204호</address>
             <p>All rights reserved &copy; copyright.</p>
         </footer>
     </div>
-    <script>
-        $("#search").click(function() {
-            const keyword = $(this).prev().val();
-            if(!keyword) return;
-
-            const data = { 
-                keyword ,
-                confmKey : 'devU01TX0FVVEgyMDI0MTAyOTEyMTYxNTExNTE5OTY=' ,
-                currentPage : 1,
-                countPerPage : 100,
-                resultType : 'json'
-            };
-            console.log(data);
-
-            $.ajax({
-                url : "https://business.juso.go.kr/addrlink/addrLinkApiJsonp.do",
-                type : 'get',
-                data,
-                dataType : 'jsonp',
-                crossDomain : true,
-                success : function(data) {
-                    console.log(data.results.juso);
-
-                    let str = '';
-                    for(let i in data.results.juso) {
-                        str += `<li class="list-group-item"><a href="#" class="small">\${data.results.juso[i].roadAddr}</a></li>`;
-                    }
-                    $("ul.search-result-wrap").html(str);
-                },
-                error : function(xhr, msg) {
-                    console.log(msg);
-                }
-            })
-
-            $("ul.search-result-wrap").on("click", "a", function() {
-                $("#roadAddr").val($(this).text());
-                $(this).closest("ul").empty();
-            })
-        });
-</script>
 </body>
 </html>
