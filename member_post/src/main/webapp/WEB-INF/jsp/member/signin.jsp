@@ -23,5 +23,14 @@
         </main>
         <jsp:include page="../common/footer.jsp" />
     </div>
+    <script>
+   /*  $(".form-check-input").click(function() {
+    	event.preventDefault();
+    	const checked = $(this).prev().find().prop()
+    	if(checked) {
+    		$.cookie('layer', 'yes');
+    	}
+    }); */
+    </script>
 </body>
 </html>
