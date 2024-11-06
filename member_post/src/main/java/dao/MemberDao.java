@@ -84,6 +84,7 @@ public class MemberDao {
 						.regdate(rs.getDate("regdate"))
 						.build();
 			}
+			rs.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} 
