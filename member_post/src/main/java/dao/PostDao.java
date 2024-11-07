@@ -70,7 +70,7 @@ public class PostDao {
 	
 	public List<Post> selectList() {
 		List<Post> posts = new ArrayList<>(); 
-		String sql = "select pno, title, writer, view_count, regdate from tbl_post";
+		String sql = "select pno, title, writer, view_count, regdate from tbl_post order by 1 desc";
 		try(Connection conn = DBConn.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -150,10 +150,10 @@ public class PostDao {
 //		}
 		
 		dao.selectList().forEach(System.out::println);
-//		System.out.println(dao.selectOne(3L));
-//		System.out.println(dao.delete(3L));
+//		System.out.println(dao.selectOne(5L));
+//		System.out.println(dao.delete(14L));
 		
-//		Post post = dao.selectOne(5L);
+//		Post post = dao.selectOne(15L);
 //		
 //		System.out.println(post);
 //		
@@ -161,8 +161,10 @@ public class PostDao {
 //		
 //		dao.update(post);
 //		
-//		post = dao.selectOne(5L);
+//		post = dao.selectOne(15L);
 //		
 //		System.out.println(post);
 	}
+
+	
 }

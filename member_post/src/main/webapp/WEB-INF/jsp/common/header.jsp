@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 		<header class="container-fluid">
             <div class="container clearfix p-2">
-                <a href="index.html" class="float-start"><img src="images/logo.png" alt="로고" class="img-fluid" width="250px"></a>
+                <a href="index.html" class="float-start"><img src="../images/logo.png" alt="로고" class="img-fluid" width="250px"></a>
                 <h1 class="text-center fw-bold p-3">더조은 아카데미 UI 구현 게시판 레이아웃</h1>
             </div>
         </header>
