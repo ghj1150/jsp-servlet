@@ -1,6 +1,7 @@
 package servlet.member;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,7 @@ public class Signin extends HttpServlet {
 
 		System.out.println(id);
 		System.out.println(pw);
-		System.out.println(remember);
+//		System.out.println(remember);
 
 		if (service.login(id, pw)) {
 			remember = req.getParameter("remember-id");
@@ -57,8 +58,13 @@ public class Signin extends HttpServlet {
 				}
 			}
 			
-			resp.sendRedirect(req.getContextPath() + "/index");
-
+			// url파라미터 여부에 따른 리디렉션 페이지 지정
+			String redirectURL = req.getContextPath() + "/index";
+			String url = req.getParameter("url");
+			if(url != null && !url.equals("")) {
+				redirectURL = URLDecoder.decode(url, "utf-8");
+			}
+			resp.sendRedirect(redirectURL);
 		} else {
 			resp.sendRedirect("login?msg=fail");
 		}

@@ -32,5 +32,13 @@ public class PostServiceImpl implements PostService {
 	public List<Post> list() {
 		return dao.selectList();
 	}
+
+	@Override
+	public Post view(Long pno) {
+		dao.increaseViewCount(pno);
+		return findBy(pno);
+	}
+	
+	
 	
 }

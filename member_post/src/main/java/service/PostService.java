@@ -13,6 +13,8 @@ public interface PostService {
 	int remove(Long pno);
 	// 단일 조회
 	Post findBy(Long pno);
+	// 조회수
+	Post view(Long pno);
 	// 게시글 목록
 	List<Post> list();
 }

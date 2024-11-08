@@ -1,0 +1,65 @@
+package servlet.post;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import service.PostService;
+import service.PostServiceImpl;
+import utils.Commons;
+import vo.Member;
+import vo.Post;
+
+@WebServlet("/post/modify")
+public class Modify extends HttpServlet {
+	private PostService service = new PostServiceImpl();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String pnoStr = req.getParameter("pno");
+		Object memberObj = req.getSession().getAttribute("member");
+		
+		if(pnoStr == null || memberObj == null) {
+			Commons.printMsg("비정상적인 접근입니다.", "list", resp);
+			return;
+		}
+		
+		Long bno = Long.valueOf(pnoStr);
+		
+		req.setAttribute("post", service.findBy(bno));
+		req.getRequestDispatcher("/WEB-INF/jsp/post/modify.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Object memberobj = req.getSession().getAttribute("member");
+		
+		if(memberobj == null) {
+			Commons.printMsg("비정상적인 접근입니다.", "list", resp);
+			return;
+		}
+		Member m = (Member) memberobj;
+		
+		// 파라미터 수집
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		String pnoStr = req.getParameter("pno");
+		Long pno = Long.valueOf(pnoStr);
+		
+		if(!m.getId().equals(service.findBy(pno).getWriter())) {
+			Commons.printMsg("본인이 작성한 글만 수정할 수 있습니다.", "list", resp);
+			return;
+		}
+		
+		service.modify(Post.builder().title(title).content(content).pno(pno).build());
+		resp.sendRedirect("view?pno="+pno);
+		
+		
+	}
+
+}
