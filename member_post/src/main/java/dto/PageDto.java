@@ -10,6 +10,12 @@ public class PageDto {
 	private int endPage; 
 	
 	private int pageCount;
+	
+	// 이전 이후 계산용 필드
+	private boolean prev;
+	private boolean next;
+	private boolean doublePrev;
+	private boolean doubleNext;
 
 	public PageDto(int total) {
 		this(new Criteria(), total);
@@ -27,11 +33,16 @@ public class PageDto {
 		startPage = endPage - pageCount + 1;
 		
 		int realEnd = (total + cri.getAmount() - 1) / cri.getAmount();
-		System.out.println(realEnd);
 		
 		if(realEnd < endPage) {
 			endPage = realEnd;
 		}
+		
+		//
+		prev = cri.getPage() > 1;
+		next = cri.getPage() < realEnd;
+		doublePrev = startPage > 1;
+		doubleNext = endPage < realEnd;
 	}
 	
 	public static void main(String[] args) {

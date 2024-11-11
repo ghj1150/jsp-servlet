@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dto.Criteria;
 import vo.Post;
 
 public interface PostService {
@@ -16,5 +17,7 @@ public interface PostService {
 	// 조회수
 	Post view(Long pno);
 	// 게시글 목록
-	List<Post> list();
+	List<Post> list(Criteria cir);
+	
+	int count(Criteria cri);
 }
