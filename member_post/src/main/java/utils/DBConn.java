@@ -18,7 +18,7 @@ public class DBConn {
 			e.printStackTrace();
 		}
 		String driver = props.getProperty("driver");
-		String host = props.getProperty("host");
+		String host = props.getProperty("url");
 		String username = props.getProperty("username");
 		String password = props.getProperty("password");
 		Class.forName(driver);
