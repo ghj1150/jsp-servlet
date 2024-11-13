@@ -8,7 +8,7 @@ import dto.Criteria;
 import vo.Post;
 
 public interface PostMapper {
-	public int insert(Post post);
+	int insert(Post post);
 	
 	Post selectOne(Long pno);
 	
