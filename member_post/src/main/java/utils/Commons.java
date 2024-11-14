@@ -6,15 +6,18 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
 
 public class Commons {
+    public static final String UPLOAD_PATH = "c:/upload";
 
     public static void printMsg(String msg, String url, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html; charset=utf-8");
-        
         PrintWriter pw = resp.getWriter();
-        
         pw.println("<script>");
-        pw.printf("alert('%s');", msg);
-        pw.printf("location.href = '%s' ;", url);
+        pw.printf("alert('%s'); %n", msg);
+        if (url == null) {
+            pw.printf("history.back();");
+        } else {
+            pw.printf("location.href = '%s' ;%n", url);
+        }
         pw.println("</script>");
 
     }
