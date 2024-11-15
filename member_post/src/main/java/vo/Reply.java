@@ -5,19 +5,19 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Reply {
-
-    private final Long rno;
-    private final String content;
-    private final Date regdate;
-    private final Date updatedate;
-    private final boolean hidden;
-    private final int likes;
-    private final String writer;
-    private final Long pno;
-
+    private Long rno;
+    private String content;
+    private Date regdate;
+    private Date updatedate;
+    private boolean hidden;
+    private int likes;
+    private String writer;
+    private Long pno;
 }
