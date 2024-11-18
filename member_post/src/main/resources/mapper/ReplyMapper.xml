@@ -25,6 +25,7 @@
 
     <select id="selectList" resultType="vo.Reply">
     select * from tbl_reply where pno = #{pno}
+
     </select>
 
 </mapper>
