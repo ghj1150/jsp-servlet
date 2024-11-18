@@ -21,6 +21,7 @@ public class ReplyServiceImpl implements ReplyService {
 	public int write(Reply reply) {
 		try (SqlSession session = MybatisInit.getInstance().sqlSessionFactory().openSession(true)) {
 			ReplyMapper mapper = session.getMapper(ReplyMapper.class);
+			System.out.println(reply);
 			return mapper.insert(reply);
 		}
 	}

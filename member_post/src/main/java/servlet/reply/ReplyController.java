@@ -46,35 +46,14 @@ public class ReplyController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	System.out.println("replyController.doPost()");
-    	char[] chs = new char[req.getContentLength()];
-    	req.getReader().read(chs);
-    	String str = new String(chs);
-    	System.out.println(str);
-    	
-//    	JsonNode node = mapper.readTree(str);
-//    	System.out.println(node);
-    	Reply reply = gson.fromJson(str, Reply.class);
-    	System.out.println(reply);
-    	
-    	service.write(reply);
-//    	service.write(gson.fromJson(req.getReader(), Reply.class));
+    	service.write(gson.fromJson(req.getReader(), Reply.class));
     }
-
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	char[] chs = new char[req.getContentLength()];
-    	req.getReader().read(chs);
-    	String str = new String(chs);
-    	System.out.println(str);
+    	Reply reply = gson.fromJson(req.getReader(), Reply.class);
     	
-//    	JsonNode node = mapper.readTree(str);
-//    	System.out.println(node);
-    	Reply reply = gson.fromJson(str, Reply.class);
-    	System.out.println(reply);
-    	
-    	service.write(reply);
+    	service.modify(reply);
     }
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
